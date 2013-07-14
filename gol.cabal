@@ -1,0 +1,41 @@
+Name: gol
+Version: 0.0.1
+Author: Matthew Peddie <peddie@alum.mit.edu>
+Maintainer: Matthew Peddie <peddie@alum.mit.edu>
+License: GPL-3
+License-File: COPYING
+stability: Experimental
+Synopsis: Conway's Game of Life
+Description: A collection of Game of Life variants using Repa as the simulation backend and not-gloss as the display frontend.
+Category: Algorithm
+Cabal-Version: >= 1.10
+Build-Type: Simple
+
+Library
+  Default-Language: Haskell2010
+  GHC-Options: -Wall
+  hs-source-dirs: src/
+  Exposed-Modules: Algorithm.GameOfLife
+  Build-Depends: base >= 4 && < 5,
+                 repa >= 3,
+                 repa-algorithms >= 3,
+                 not-gloss >= 0.5,
+                 spatial-math >= 0.1
+  ghc-options:   -Odph -fno-liberate-case -funfolding-use-threshold1000 -funfolding-keeness-factor1000 -optlo-O3
+
+
+Executable       GameOfLife
+  Default-Language: Haskell2010
+  hs-source-dirs: src/
+  main-is:       Main.hs
+  ghc-options:   -Odph -rtsopts -threaded -fno-liberate-case -funfolding-use-threshold1000 -funfolding-keeness-factor1000 -optlo-O3
+  Build-Depends: base >= 4 && < 5,
+                 repa >= 3,
+                 repa-algorithms >= 3,
+                 not-gloss >= 0.5,
+                 spatial-math >= 0.1,
+                 gol
+
+source-repository head
+  type:           git
+  location:       git://github.com/peddie/gol.git
