@@ -1,5 +1,8 @@
 {-# OPTIONS_GHC -Wall #-}
-{-# LANGUAGE BangPatterns, QuasiQuotes #-}
+{-# LANGUAGE BangPatterns
+  , QuasiQuotes
+  , FlexibleContexts
+  #-}
 
 module Algorithm.GameOfLife (
                              step
@@ -30,7 +33,7 @@ transition _ 0 = 0
 transition _ 1 = 0
 transition _ _ = 1
 
-step :: (Monad m) =>
-        Float -> R.Array R.U R.DIM2 Int -> m (R.Array R.U R.DIM2 Int)
+step :: (R.Source e Int, Monad m) =>
+        Float -> R.Array e R.DIM2 Int -> m (R.Array R.U R.DIM2 Int)
 step _ !world = R.computeP $ R.zipWith transition world neighbors
    where neighbors = mapStencil2 (BoundClamp) countNeighbors world
